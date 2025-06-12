@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Cadential Studios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-script">cs</div>
+            <div class="logo-text">CADENTIAL STUDIOS</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Music</a></li>
+                <li><a href="#" class="nav-link">Podcast</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle light/dark mode">
+            <!-- Icon for light/dark mode toggle -->
+        </button>
+    </header>
+
+    <main id="main-content">
+        <section class="projects-gallery">
+            <h1>Our Projects</h1>
+            <div class="filter-controls">
+                <button class="filter-button active" data-filter="all">All</button>
+                <button class="filter-button" data-filter="game">Games</button>
+                <button class="filter-button" data-filter="music">Music</button>
+                <button class="filter-button" data-filter="animation">Animation</button>
+                <!-- Add more filters as needed -->
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <a href="https://project1.cadential.com" class="glass-card project-tile" data-category="game" target="_blank">
+                    <img src="images/project1-logo.png" alt="Project 1 Logo">
+                    <h3>Project Title 1</h3>
+                    <p>Short blurb about Project 1. <span class="coming-soon-badge">Coming Soon</span></p>
+                    <span class="button">View Project</span>
+                </a>
+                <!-- Project 2 -->
+                <a href="https://project2.cadential.com" class="glass-card project-tile" data-category="music" target="_blank">
+                    <img src="images/project2-logo.png" alt="Project 2 Logo">
+                    <h3>Project Title 2</h3>
+                    <p>Short blurb about Project 2.</p>
+                    <span class="button">View Project</span>
+                </a>
+                <!-- Add more project tiles here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo-container-footer">
+            <div class="logo-script-footer">cs</div>
+        </div>
+        <p>&copy; 2025 Cadential Studios | Quality from start to finish</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

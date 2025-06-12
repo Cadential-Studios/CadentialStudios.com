@@ -1,0 +1,745 @@
+/* General Body Styles */
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background-color: #FFFFFF; /* Default light mode background */
+    color: #222222; /* Default text color */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #111111;
+    color: #F8F8F8;
+}
+
+/* Main Content Area */
+#main-content {
+    padding-top: 100px; /* Adjust based on header height */
+}
+
+/* Header & Navigation */
+header {
+    padding: 20px 5%;
+    background-color: rgba(255, 255, 255, 0.8); /* Slight transparency for sticky effect */
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(200,200,200,0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 90%; 
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+body.dark-mode header {
+    background-color: rgba(17, 17, 17, 0.8);
+    border-bottom: 1px solid rgba(50,50,50,0.5);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-script {
+    font-family: 'Your Script Font', cursive; /* Replace with actual script font if available */
+    font-size: 2.5em;
+    color: #111111;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 1.2em;
+    color: #111111;
+}
+
+body.dark-mode .logo-script,
+body.dark-mode .logo-text {
+    color: #F8F8F8;
+}
+
+header .tagline {
+    font-size: 0.9em;
+    color: #333333;
+    margin-left: 15px; /* Spacing from logo */
+}
+
+body.dark-mode header .tagline {
+    color: #ccc;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #222222;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    font-size: 0.9em;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #111111; /* Accent color or darker shade */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #111111; /* Accent color */
+    transition: width 0.3s ease-out;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+body.dark-mode .nav-link {
+    color: #F8F8F8;
+}
+
+body.dark-mode .nav-link:hover,
+body.dark-mode .nav-link.active {
+    color: #FFFFFF; 
+}
+
+body.dark-mode .nav-link::after {
+    background-color: #FFFFFF; 
+}
+
+#theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em; /* Adjust icon size */
+    color: #222222;
+}
+
+body.dark-mode #theme-toggle {
+    color: #F8F8F8;
+}
+
+/* Headings */
+h1, h2, h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.8em;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+.button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 24px;
+    padding: 12px 28px;
+    border: 1px solid #111111;
+    background: transparent;
+    color: #111111;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #111111;
+    color: #FFFFFF;
+}
+
+body.dark-mode .button {
+    border-color: #F8F8F8;
+    color: #F8F8F8;
+}
+
+body.dark-mode .button:hover {
+    background: #F8F8F8;
+    color: #111111;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    border: 1px solid rgba(200, 200, 200, 0.3);
+    padding: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .glass-card {
+    background: rgba(34, 34, 34, 0.6); /* Darker glass for dark mode */
+    border: 1px solid rgba(80, 80, 80, 0.3);
+    box-shadow: 0 4px 32px rgba(255,255,255,0.03);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    background: #f8f8f8;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222222;
+    border-radius: 4px;
+}
+
+body.dark-mode ::-webkit-scrollbar {
+    background: #1a1a1a;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #555555;
+}
+
+/* Focus Styles for Accessibility */
+:focus {
+    outline: 2px solid #111111;
+    outline-offset: 2px;
+}
+
+body.dark-mode :focus {
+    outline-color: #F8F8F8;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 5%;
+    border-top: 1px solid rgba(200,200,200,0.3);
+    margin-top: 60px;
+    font-size: 0.9em;
+}
+
+body.dark-mode footer {
+    border-top: 1px solid rgba(50,50,50,0.5);
+}
+
+.logo-container-footer .logo-script-footer {
+    font-family: 'Your Script Font', cursive; /* Replace */
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-nav ul li {
+    margin: 0 15px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8em;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #111111;
+}
+
+body.dark-mode .footer-link {
+    color: #ccc;
+}
+
+body.dark-mode .footer-link:hover {
+    color: #fff;
+}
+
+.social-icons img, .social-icons-footer img {
+    width: 24px; /* Adjust as needed */
+    height: 24px;
+    margin: 0 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.social-icons img:hover, .social-icons-footer img:hover {
+    opacity: 1;
+}
+
+/* Hero Area */
+.hero-area {
+    min-height: 70vh; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 5%;
+    background-color: #F8F8F8; /* Light gray background */
+}
+
+body.dark-mode .hero-area {
+    background-color: #181818; /* Slightly lighter than body for contrast */
+}
+
+.hero-area h1 {
+    font-size: 3.5em; /* Larger for hero */
+    margin-bottom: 30px;
+}
+
+/* Featured Projects Section */
+.featured-projects, .projects-gallery {
+    padding: 40px 5%;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.project-tile {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* For the <a> tag to behave like a block */
+}
+
+.project-tile img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px; /* Rounded corners for images inside cards */
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.project-tile h3 {
+    font-size: 1.4em;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.project-tile p {
+    font-size: 0.9em;
+    color: #333333;
+}
+
+body.dark-mode .project-tile p {
+    color: #ccc;
+}
+
+.coming-soon-badge {
+    background-color: #111111; /* Or accent color */
+    color: #FFFFFF;
+    font-size: 0.7em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+body.dark-mode .coming-soon-badge {
+    background-color: #F8F8F8;
+    color: #111111;
+}
+
+/* What We Do Section */
+.what-we-do {
+    padding: 40px 5%;
+    background-color: #F8F8F8;
+}
+
+body.dark-mode .what-we-do {
+    background-color: #181818;
+}
+
+.services-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.service-item {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid transparent; /* For hover effect */
+    border-radius: 16px;
+    transition: border-color 0.3s, background-color 0.3s;
+    min-width: 150px;
+}
+
+.service-item:hover {
+    border-color: rgba(0,0,0,0.1); /* Accent hover */
+    background-color: rgba(0,0,0,0.02);
+}
+
+body.dark-mode .service-item:hover {
+    border-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.02);
+}
+
+.service-item img { /* Assuming you'll add icons */
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+/* Newsletter/Socials Section */
+.newsletter-socials {
+    padding: 40px 5%;
+    text-align: center;
+}
+
+.subscribe-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    margin: 20px auto 30px;
+}
+
+.subscribe-bar input[type="email"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 24px 0 0 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+}
+
+body.dark-mode .subscribe-bar input[type="email"] {
+    background-color: #222;
+    border-color: #444;
+    color: #F8F8F8;
+}
+
+.subscribe-bar .button {
+    border-radius: 0 24px 24px 0;
+    padding: 13px 28px; /* Match height of input */
+    margin-left: -1px; /* Overlap border */
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+/* Projects Page Specific */
+.filter-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter-button {
+    margin: 0 10px;
+    padding: 8px 20px;
+    /* Uses .button styles by default, can add specifics */
+}
+
+.filter-button.active {
+    background: #111111;
+    color: #FFFFFF;
+}
+
+body.dark-mode .filter-button.active {
+    background: #F8F8F8;
+    color: #111111;
+}
+
+/* About Page Specific */
+.about-studio {
+    padding: 40px 5%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.studio-origin h2, .team-section h2 {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.studio-origin p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #333333;
+}
+
+body.dark-mode .studio-origin p {
+    color: #ccc;
+}
+
+.motto-accent {
+    font-style: italic;
+    font-weight: 600;
+    color: #111111; /* Or accent color */
+    text-align: center;
+    margin-top: 30px !important;
+    font-size: 1.2em !important;
+}
+
+body.dark-mode .motto-accent {
+    color: #F8F8F8;
+}
+
+.team-section {
+    margin-top: 50px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #fff; /* For a bit of separation */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .team-avatar {
+    border-color: #222;
+}
+
+.team-member h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    font-size: 0.9em;
+    color: #333333;
+}
+
+body.dark-mode .team-member p {
+    color: #ccc;
+}
+
+/* Contact Page Specific */
+.contact-form-section {
+    padding: 40px 5%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-tagline {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.contact-form {
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: calc(100% - 24px); /* Account for padding */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+}
+
+body.dark-mode .form-group input[type="text"],
+body.dark-mode .form-group input[type="email"],
+body.dark-mode .form-group textarea {
+    background-color: #222;
+    border-color: #444;
+    color: #F8F8F8;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form .button {
+    display: block;
+    width: auto;
+    margin: 20px auto 0;
+}
+
+/* 404 Page Specific */
+.error-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 180px); /* Adjust based on header/footer height */
+    text-align: center;
+    padding: 40px 5%;
+}
+
+.error-message h1 {
+    font-size: 6em; /* Large 404 text */
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.error-message h2 {
+    font-size: 2em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.error-message p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: #333333;
+}
+
+body.dark-mode .error-message p {
+    color: #ccc;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px 5%;
+    }
+    #main-content {
+        padding-top: 150px; /* Adjust for taller mobile header */
+    }
+    nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 5px 10px;
+    }
+    .logo-text {
+        font-size: 1em;
+    }
+    .logo-script {
+        font-size: 2em;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+    .hero-area h1 {
+        font-size: 2.8em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr; /* Stack projects on smaller screens */
+    }
+    .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .service-item {
+        width: 80%;
+    }
+    .subscribe-bar {
+        flex-direction: column;
+    }
+    .subscribe-bar input[type="email"] {
+        border-radius: 24px;
+        margin-bottom: 10px;
+        width: calc(100% - 30px);
+        text-align: center;
+    }
+    .subscribe-bar .button {
+        border-radius: 24px;
+        width: auto;
+    }
+}
+
+/* Animations (Subtle fade-in for sections) */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-animate.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
