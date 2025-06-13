@@ -10,86 +10,106 @@
 <body>
     <header>
         <div class="logo-container">
-            <div class="logo-script">cs</div>
-            <div class="logo-text">CADENTIAL STUDIOS</div>
+            <a href="index.html" class="logo-link">
+                <img src="images/initials_only_transparent.png" alt="Cadential Studios Logo" class="header-logo-img">
+            </a>
         </div>
-        <p class="tagline">Quality from start to finish</p>
+        <p class="tagline header-tagline">Quality from start to finish</p>
         <nav>
             <ul>
                 <li><a href="projects.html" class="nav-link">Projects</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="#" class="nav-link">Music</a></li>
-                <li><a href="#" class="nav-link">Podcast</a></li>
+                <li><a href="music.html" class="nav-link">Music</a></li>
+                <li><a href="podcast.html" class="nav-link">Podcast</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
         </nav>
         <button id="theme-toggle" aria-label="Toggle light/dark mode">
-            <!-- Icon for light/dark mode toggle -->
+            <svg class="theme-icon" id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0-5c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1V5c0-.55-.45-1-1-1zm0 14c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1zm-8-7c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1s.45-1 1-1h2c.55 0 1 .45 1 1zm14 0c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1s.45-1 1-1h2c.55 0 1 .45 1 1zM6.34 6.34c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L6.34 6.34zm11.32 11.32c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-1.41-1.41zM6.34 17.66l-1.41-1.41c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0zm11.32-11.32l-1.41-1.41c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0z"/></svg>
+            <svg class="theme-icon" id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" style="display:none;"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.97-4.03-9-9-9zm-1 13.5c-2.48 0-4.5-2.02-4.5-4.5S8.52 7.5 11 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/></svg>
         </button>
     </header>
 
     <main id="main-content">
-        <section class="hero-area">
+        <section class="hero-area scroll-animate">
             <h1>Crafting multimedia experiences.</h1>
+            <p class="hero-subtagline">Quality from start to finish.</p>
             <!-- Optional: Subtle animation: Faint looping video or image -->
-            <a href="projects.html" class="button">EXPLORE</a>
+            <div class="hero-media-placeholder" aria-hidden="true">
+                <!-- Placeholder for looping video or image -->
+            </div>
+            <a href="projects.html" class="button">EXPLORE OUR WORK</a>
         </section>
 
-        <section class="featured-projects">
+        <section class="featured-projects scroll-animate">
             <h2>Featured Projects</h2>
+            <p class="section-intro">Discover a selection of our innovative work, showcasing our commitment to excellence and creativity in every detail.</p>
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <a href="https://project1.cadential.com" class="glass-card project-tile" target="_blank">
-                    <img src="images/project1-logo.png" alt="Project 1 Logo">
-                    <h3>Project Title 1</h3>
-                    <p>A one-line description of this amazing project.</p>
+                <a href="https://lineage.cadential.com" class="glass-card project-tile" target="_blank">
+                    <img src="images/project-lineage-logo.png" alt="Lineage Game Logo">
+                    <h3>Lineage: Echoes of the Past</h3>
+                    <p>An immersive narrative adventure game exploring ancestral connections.</p>
                 </a>
                 <!-- Project 2 -->
-                <a href="https://project2.cadential.com" class="glass-card project-tile" target="_blank">
-                    <img src="images/project2-logo.png" alt="Project 2 Logo">
-                    <h3>Project Title 2</h3>
-                    <p>Another brief, compelling description here.</p>
+                <a href="https://sonata.cadential.com" class="glass-card project-tile" target="_blank">
+                    <img src="images/project-sonata-logo.png" alt="Project Sonata Logo">
+                    <h3>Project Sonata</h3>
+                    <p>An original soundtrack blending orchestral arrangements with electronic soundscapes.</p>
                 </a>
-                <!-- Add more projects as needed -->
+                <!-- Project 3 -->
+                <a href="https://chroma.cadential.com" class="glass-card project-tile" target="_blank">
+                    <img src="images/project-chroma-logo.png" alt="Chroma Animation Logo">
+                    <h3>Chroma Shorts</h3>
+                    <p>A series of animated shorts exploring abstract visual storytelling.</p>
+                </a>
             </div>
         </section>
 
-        <section class="what-we-do">
+        <section class="what-we-do scroll-animate">
             <h2>What We Do</h2>
+            <p class="section-intro">We specialize in bringing creative visions to life across a spectrum of digital media. Our expertise ensures quality from concept to final product.</p>
             <div class="services-container">
-                <div class="service-item">
-                    <!-- <img src="icons/game-dev.svg" alt="Game Development Icon"> -->
-                    <p>Game Development</p>
+                <div class="service-item glass-card">
+                    <img src="icons/game-dev.svg" alt="Game Development Icon" class="service-icon">
+                    <h4>Game Development</h4>
+                    <p>Creating engaging and polished interactive experiences for various platforms.</p>
                 </div>
-                <div class="service-item">
-                    <!-- <img src="icons/music.svg" alt="Music Icon"> -->
-                    <p>Music</p>
+                <div class="service-item glass-card">
+                    <img src="icons/music.svg" alt="Music Production Icon" class="service-icon">
+                    <h4>Music Production</h4>
+                    <p>Composing, recording, and producing original music for games, film, and standalone releases.</p>
                 </div>
-                <div class="service-item">
-                    <!-- <img src="icons/animation.svg" alt="Animation Icon"> -->
-                    <p>Animation</p>
+                <div class="service-item glass-card">
+                    <img src="icons/animation.svg" alt="Animation Icon" class="service-icon">
+                    <h4>Animation</h4>
+                    <p>Producing 2D and 3D animations, motion graphics, and visual effects.</p>
                 </div>
-                <div class="service-item">
-                    <!-- <img src="icons/ai.svg" alt="AI Icon"> -->
-                    <p>AI</p>
+                <div class="service-item glass-card">
+                    <img src="icons/ai.svg" alt="AI Integration Icon" class="service-icon">
+                    <h4>AI Integration</h4>
+                    <p>Exploring and implementing AI solutions to enhance creative workflows and user experiences.</p>
                 </div>
-                <div class="service-item">
-                    <!-- <img src="icons/podcasts.svg" alt="Podcasts Icon"> -->
-                    <p>Podcasts</p>
+                <div class="service-item glass-card">
+                    <img src="icons/podcasts.svg" alt="Podcast Production Icon" class="service-icon">
+                    <h4>Podcast Production</h4>
+                    <p>Full-service podcast creation, from recording and editing to distribution.</p>
                 </div>
             </div>
         </section>
 
-        <section class="newsletter-socials">
+        <section class="newsletter-socials scroll-animate">
             <h2>Stay Connected</h2>
+            <p class="section-intro">Subscribe to our newsletter for the latest updates, project announcements, and insights from Cadential Studios.</p>
             <form class="subscribe-bar">
-                <input type="email" placeholder="Enter your email" aria-label="Email for newsletter">
+                <input type="email" placeholder="Enter your email" aria-label="Email for newsletter" required>
                 <button type="submit" class="button">Subscribe</button>
             </form>
             <div class="social-icons">
-                <!-- Add social media icons here -->
-                <a href="#" aria-label="Link to Twitter"><img src="icons/twitter-monochrome.svg" alt="Twitter"></a>
-                <a href="#" aria-label="Link to Instagram"><img src="icons/instagram-monochrome.svg" alt="Instagram"></a>
+                <a href="#" aria-label="Link to Twitter" title="Twitter/X"><img src="icons/twitter-monochrome.svg" alt="Twitter"></a>
+                <a href="#" aria-label="Link to Instagram" title="Instagram"><img src="icons/instagram-monochrome.svg" alt="Instagram"></a>
+                <a href="#" aria-label="Link to YouTube" title="YouTube"><img src="icons/youtube-monochrome.svg" alt="YouTube"></a>
+                <a href="#" aria-label="Link to LinkedIn" title="LinkedIn"><img src="icons/linkedin-monochrome.svg" alt="LinkedIn"></a>
             </div>
         </section>
     </main>
@@ -100,18 +120,26 @@
         </div>
         <nav class="footer-nav">
             <ul>
+                <li><a href="index.html" class="footer-link">Home</a></li>
                 <li><a href="projects.html" class="footer-link">Projects</a></li>
                 <li><a href="about.html" class="footer-link">About</a></li>
+                <li><a href="music.html" class="footer-link">Music</a></li>
+                <li><a href="podcast.html" class="footer-link">Podcast</a></li>
                 <li><a href="contact.html" class="footer-link">Contact</a></li>
+                <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li> 
             </ul>
         </nav>
         <p>&copy; 2025 Cadential Studios | Quality from start to finish</p>
         <div class="social-icons-footer">
-            <!-- Add social media icons here -->
-            <a href="#" aria-label="Link to Twitter"><img src="icons/twitter-small-monochrome.svg" alt="Twitter"></a>
-            <a href="#" aria-label="Link to Instagram"><img src="icons/instagram-small-monochrome.svg" alt="Instagram"></a>
+            <a href="#" aria-label="Link to Twitter" title="Twitter/X"><img src="icons/twitter-small-monochrome.svg" alt="Twitter"></a>
+            <a href="#" aria-label="Link to Instagram" title="Instagram"><img src="icons/instagram-small-monochrome.svg" alt="Instagram"></a>
+            <a href="#" aria-label="Link to YouTube" title="YouTube"><img src="icons/youtube-small-monochrome.svg" alt="YouTube"></a>
         </div>
     </footer>
+
+    <div id="page-loader">
+        <div class="loader-initials">cs</div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
