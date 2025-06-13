@@ -2,15 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('theme-toggle');
     const headerLogo = document.getElementById('header-logo');
-    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-
-    // Function to update logo based on theme
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;    // Function to update logo based on theme
     const updateLogo = (isDarkMode) => {
         if (headerLogo) {
             if (isDarkMode) {
                 headerLogo.src = 'images/dark theme/full_banner_transparent.png';
             } else {
                 headerLogo.src = 'images/light theme/full_banner_transparent.png';
+            }
+        }
+        
+        // Update footer logo as well
+        const footerLogo = document.getElementById('footer-logo');
+        if (footerLogo) {
+            if (isDarkMode) {
+                footerLogo.src = 'images/dark theme/initials_only_transparent.png';
+            } else {
+                footerLogo.src = 'images/light theme/initials_only_transparent.png';
             }
         }
     };
@@ -116,13 +124,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // if (animatedLogo) {
     //     // Trigger animation (e.g., by adding a class)
     //     setTimeout(() => animatedLogo.classList.add('animate'), 100);
-    // }
-
-    // Add class to body sections for scroll animations
-    const sectionsToAnimate = document.querySelectorAll('main > section');
+    // }    // Add class to specific sections that should have scroll animations
+    // Only add to sections that already have scroll-animate class or are specifically intended for animation
+    const sectionsToAnimate = document.querySelectorAll('main > section.scroll-animate, .hero-area, .featured-projects');
     sectionsToAnimate.forEach(section => {
-        section.classList.add('scroll-animate');
+        if (!section.classList.contains('scroll-animate')) {
+            section.classList.add('scroll-animate');
+        }
     });
+    
+    // Ensure contact and other static pages don't get unwanted animations
+    const staticSections = document.querySelectorAll('.contact-form-section, .about-section');
+    staticSections.forEach(section => {
+        section.classList.remove('scroll-animate');
+        // Ensure these sections are visible
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+    });
+    
     animateOnScroll(); // Re-check after adding class
 
 });

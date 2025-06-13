@@ -33,44 +33,179 @@
                 <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.97-4.03-9-9-9zm-1 13.5c-2.48 0-4.5-2.02-4.5-4.5S8.52 7.5 11 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/>
             </svg>
         </button>
-    </header>
-
-    <main id="main-content">
+    </header>    <main id="main-content">
         <section class="contact-form-section">
             <h1>Admin Dashboard</h1>
-            <p>Welcome, admin! Below are some quick links and placeholders.</p>
-            <div class="glass-card" style="padding:20px; margin-bottom:20px;">
-                <h2>Mailbox</h2>
-                <p>No new messages.</p>
-            </div>
-            <div class="glass-card" style="padding:20px; margin-bottom:20px;">
-                <h2>Admin Options</h2>
-                <ul>
-                    <li>Manage Users</li>
-                    <li>Site Settings</li>
-                    <li>Content Moderation</li>
-                </ul>
-            </div>
-            <div class="glass-card" style="padding:20px;">
-                <h2>Analytics</h2>
-                <p>Visitor analytics coming soon.</p>
+            <p>Welcome, admin! Manage your site and view messages below.</p>
+            
+            <!-- Two-Column Admin Layout -->
+            <div class="admin-dashboard-grid">
+                <!-- Left Column -->
+                <div class="admin-column admin-column-left">
+                    <!-- Site Controls -->
+                    <div class="glass-card admin-card">
+                        <h2>Site Controls</h2>
+                        <div class="admin-controls-grid">
+                            <button id="toggle-maintenance" class="button">Check Maintenance Status</button>
+                            <button id="export-messages" class="button">Export Messages</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Analytics Section -->
+                    <div class="glass-card admin-card">
+                        <h2>Analytics</h2>
+                        <p>Visitor analytics and site statistics coming soon.</p>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <h4>Total Messages</h4>
+                                <span class="stat-number" id="total-messages">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>Unread</h4>
+                                <span class="stat-number" id="unread-messages">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>Starred</h4>
+                                <span class="stat-number" id="starred-messages">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- User Management -->
+                    <div class="glass-card admin-card">
+                        <h2>User Management</h2>
+                        <p>User administration features coming soon.</p>
+                        <div class="admin-controls-grid">
+                            <button class="button" disabled>View Users</button>
+                            <button class="button" disabled>Manage Permissions</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="admin-column admin-column-right">
+                    <!-- Mailbox Section -->
+                    <div class="glass-card admin-card admin-mailbox-card">
+                        <div id="admin-mailbox">
+                            <!-- Mailbox content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
-
-    <footer>
+    </main>    <footer>
         <div class="logo-container-footer">
-            <div class="logo-script-footer">cs</div>
+            <img src="images/light theme/initials_only_transparent.png" alt="Cadential Studios Footer Logo" class="footer-logo-img" id="footer-logo">
         </div>
         <p>&copy; 2025 Cadential Studios | Quality from start to finish</p>
     </footer>
 
     <div id="page-loader">
         <div class="loader-initials">cs</div>
-    </div>
-
-    <script src="js/main.js"></script>
+    </div>    <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/mailbox.js"></script>
+    <script>
+        // Admin-specific functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check admin access
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!currentUser || !currentUser.isAdmin) {
+                // Redirect non-admin users
+                alert('Admin access required. Redirecting to login page.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Setup admin controls
+            setupAdminControls();
+        });        function setupAdminControls() {
+            // Update statistics
+            updateAdminStats();
+            
+            // Maintenance mode status
+            const maintenanceBtn = document.getElementById('toggle-maintenance');
+            if (maintenanceBtn) {
+                maintenanceBtn.addEventListener('click', () => {
+                    // Check current maintenance mode from maintenance.js
+                    fetch('js/maintenance.js')
+                        .then(response => response.text())
+                        .then(text => {
+                            const maintenanceMatch = text.match(/const MAINTENANCE_MODE = (true|false)/);
+                            const devModeMatch = text.match(/const DEVELOPER_MODE = (true|false)/);
+                            const maintenance = maintenanceMatch ? maintenanceMatch[1] === 'true' : false;
+                            const devMode = devModeMatch ? devModeMatch[1] === 'true' : false;
+                            
+                            let status = maintenance ? '🔴 MAINTENANCE MODE ACTIVE' : '🟢 SITE IS LIVE';
+                            if (devMode) status += ' (Developer Mode Enabled)';
+                            
+                            alert(`Current Status: ${status}\n\nTo change maintenance mode, edit js/maintenance.js file:\n- Set MAINTENANCE_MODE to true/false\n- Set DEVELOPER_MODE to true/false for testing`);
+                        })
+                        .catch(error => {
+                            alert('Could not check maintenance status. Please check js/maintenance.js file manually.');
+                        });
+                });
+            }
+
+            // Export messages functionality
+            const exportBtn = document.getElementById('export-messages');
+            if (exportBtn) {
+                exportBtn.addEventListener('click', () => {
+                    const messages = mailbox.getMessages();
+                    if (messages.length === 0) {
+                        alert('No messages to export.');
+                        return;
+                    }
+                    
+                    const exportData = {
+                        exportDate: new Date().toISOString(),
+                        messageCount: messages.length,
+                        messages: messages
+                    };
+                    
+                    const dataStr = JSON.stringify(exportData, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    const url = URL.createObjectURL(dataBlob);
+                    
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `cadential-messages-${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                });
+            }
+        }        function updateAdminStats() {
+            if (typeof mailbox !== 'undefined') {
+                const messages = mailbox.getMessages();
+                const unreadCount = messages.filter(msg => !msg.isRead).length;
+                const starredCount = messages.filter(msg => msg.isStarred).length;
+                
+                // Update stat displays with animation
+                updateStatDisplay('total-messages', messages.length);
+                updateStatDisplay('unread-messages', unreadCount);
+                updateStatDisplay('starred-messages', starredCount);
+            } else {
+                // Retry after a short delay if mailbox isn't loaded yet
+                setTimeout(updateAdminStats, 100);
+            }
+        }
+
+        function updateStatDisplay(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            if (element && element.textContent !== newValue.toString()) {
+                element.style.transform = 'scale(1.1)';
+                element.textContent = newValue;
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        // Update stats whenever mailbox changes
+        setInterval(updateAdminStats, 2000);
+    </script>
 </body>
 </html>
 

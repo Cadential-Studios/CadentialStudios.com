@@ -18,24 +18,26 @@ body.dark-mode {
 
 /* Main Content Area */
 #main-content {
-    padding-top: 100px; /* Adjust based on header height */
+    padding-top: 90px; /* Adjust based on fixed header height (70px + 20px buffer) */
 }
 
 /* Header & Navigation */
 header {
-    padding: 20px 5%;
+    padding: 15px 5%;
     background-color: rgba(255, 255, 255, 0.8); /* Slight transparency for sticky effect */
     backdrop-filter: blur(5px);
     border-bottom: 1px solid rgba(200,200,200,0.3);
     position: fixed;
     top: 0;
     left: 0;
-    width: 90%; 
+    right: 0; /* Changed from width: 90% to right: 0 for full width */
+    height: 70px; /* Fixed height to prevent layout shifts */
     z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s;
+    box-sizing: border-box; /* Include padding in height calculation */
 }
 
 body.dark-mode header {
@@ -46,12 +48,18 @@ body.dark-mode header {
 .logo-container {
     display: flex;
     align-items: center;
+    min-width: 200px; /* Reserve minimum space for logo to prevent shifts */
+    flex-shrink: 0; /* Prevent logo container from shrinking */
 }
 
 .header-logo-img {
     height: 60px; /* Increased by 25% from 40px */
     width: auto;
+    max-width: 180px; /* Prevent logo from being too wide */
+    min-width: 120px; /* Ensure consistent minimum width */
+    object-fit: contain; /* Maintain aspect ratio within bounds */
     transition: opacity 0.3s ease;
+    display: block; /* Prevent inline spacing issues */
 }
 
 .header-logo-img:hover {
@@ -88,11 +96,19 @@ body.dark-mode header .tagline {
     color: #ccc;
 }
 
+nav {
+    flex: 1; /* Take up remaining space between logo and theme toggle */
+    display: flex;
+    justify-content: center; /* Center the navigation menu */
+    margin: 0 20px; /* Add space between logo and theme toggle */
+}
+
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center; /* Vertically center nav items */
 }
 
 nav ul li {
@@ -151,6 +167,12 @@ body.dark-mode .nav-link::after {
     cursor: pointer;
     font-size: 1.5em; /* Adjust icon size */
     color: #222222;
+    min-width: 50px; /* Reserve minimum space for theme toggle */
+    flex-shrink: 0; /* Prevent theme toggle from shrinking */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px; /* Add some padding for better click area */
 }
 
 body.dark-mode #theme-toggle {
@@ -239,6 +261,16 @@ body.dark-mode .glass-card {
     bottom: 20px;
     right: 20px;
     z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.developer-controls.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .dev-button {
@@ -327,10 +359,15 @@ body.dark-mode footer {
     border-top: 1px solid rgba(50,50,50,0.5);
 }
 
-.logo-container-footer .logo-script-footer {
-    font-family: 'Your Script Font', cursive; /* Replace */
-    font-size: 2em;
+.logo-container-footer .footer-logo-img {
+    height: 40px;
+    width: auto;
     margin-bottom: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.logo-container-footer .footer-logo-img:hover {
+    opacity: 0.8;
 }
 
 .footer-nav ul {
@@ -676,6 +713,7 @@ body.dark-mode .team-member p {
 
 .form-group input[type="text"],
 .form-group input[type="email"],
+.form-group input[type="password"],
 .form-group textarea {
     width: calc(100% - 24px); /* Account for padding */
     padding: 12px;
@@ -687,6 +725,7 @@ body.dark-mode .team-member p {
 
 body.dark-mode .form-group input[type="text"],
 body.dark-mode .form-group input[type="email"],
+body.dark-mode .form-group input[type="password"],
 body.dark-mode .form-group textarea {
     background-color: #222;
     border-color: #444;
@@ -735,6 +774,502 @@ body.dark-mode .form-group textarea {
 
 body.dark-mode .error-message p {
     color: #ccc;
+}
+
+/* Mailbox System Styles */
+.form-feedback {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.form-feedback.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-feedback.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+body.dark-mode .form-feedback.success {
+    background-color: #1e4620;
+    color: #a3cfb0;
+    border-color: #2d5a2f;
+}
+
+body.dark-mode .form-feedback.error {
+    background-color: #4a1e20;
+    color: #f5a3a3;
+    border-color: #5a2d2f;
+}
+
+/* Admin Mailbox Styles */
+.mailbox-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+body.dark-mode .mailbox-header {
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.mailbox-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.unread-count {
+    color: #dc3545;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.mailbox-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-secondary, .btn-danger, .btn-primary {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-icon:hover {
+    opacity: 0.7;
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+}
+
+.btn-icon:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.star-btn {
+    color: #ffc107;
+}
+
+.star-btn:hover {
+    color: #ffb300;
+}
+
+.delete-btn {
+    color: #dc3545;
+}
+
+.delete-btn:hover {
+    color: #c82333;
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.no-messages {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.message-item {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .message-item {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+
+/* Starred message styling */
+.message-item.starred {
+    border-left: 4px solid #ffc107;
+    background: rgba(255, 193, 7, 0.05);
+}
+
+body.dark-mode .message-item.starred {
+    background: rgba(255, 193, 7, 0.1);
+}
+
+.message-item.starred .star-btn {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+/* Message read/unread states */
+.message-item.unread {
+    font-weight: 600;
+    border-left: 4px solid #007bff;
+}
+
+.message-item.unread .message-sender strong {
+    color: #007bff;
+}
+
+body.dark-mode .message-item.unread .message-sender strong {
+    color: #66b3ff;
+}
+
+.message-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.message-sender strong {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+body.dark-mode .message-sender strong {
+    color: #fff;
+}
+
+.message-email {
+    color: #666;
+    font-size: 0.9rem;
+    margin-left: 8px;
+}
+
+body.dark-mode .message-email {
+    color: #ccc;
+}
+
+.message-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+body.dark-mode .message-date {
+    color: #ccc;
+}
+
+.message-actions {
+    display: flex;
+    align-items: center;
+}
+
+.message-subject {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.message-content {
+    background: rgba(0,0,0,0.05);
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+body.dark-mode .message-content {
+    background: rgba(255,255,255,0.05);
+}
+
+.message-actions-footer {
+    margin-top: 10px;
+    text-align: right;
+}
+
+/* Admin Dashboard Two-Column Layout */
+.admin-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.admin-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-card {
+    padding: 20px;
+    height: fit-content;
+}
+
+.admin-mailbox-card {
+    min-height: 600px;
+}
+
+/* Admin Controls Grid */
+.admin-controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.admin-controls-grid .button {
+    width: 100%;
+    margin: 0;
+}
+
+/* Stats Grid for Analytics */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(200, 200, 200, 0.3);
+}
+
+body.dark-mode .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+}
+
+body.dark-mode .stat-item h4 {
+    color: #aaa;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #111111;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+body.dark-mode .stat-number {
+    color: #F8F8F8;
+}
+
+/* Enhanced Admin Dashboard Styling */
+.admin-card h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #111111;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid rgba(17, 17, 17, 0.1);
+    padding-bottom: 10px;
+}
+
+body.dark-mode .admin-card h2 {
+    color: #F8F8F8;
+    border-bottom-color: rgba(248, 248, 248, 0.1);
+}
+
+/* Enhanced disabled button styling */
+.admin-controls-grid .button:disabled {
+    background: rgba(17, 17, 17, 0.3);
+    color: rgba(17, 17, 17, 0.5);
+    border-color: rgba(17, 17, 17, 0.3);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+body.dark-mode .admin-controls-grid .button:disabled {
+    background: rgba(248, 248, 248, 0.3);
+    color: rgba(248, 248, 248, 0.5);
+    border-color: rgba(248, 248, 248, 0.3);
+}
+
+.admin-controls-grid .button:disabled:hover {
+    background: rgba(17, 17, 17, 0.3);
+    color: rgba(17, 17, 17, 0.5);
+    transform: none;
+}
+
+body.dark-mode .admin-controls-grid .button:disabled:hover {
+    background: rgba(248, 248, 248, 0.3);
+    color: rgba(248, 248, 248, 0.5);
+}
+
+/* Improve mailbox section in admin dashboard */
+.admin-mailbox-card .mailbox-header {
+    margin-bottom: 0;
+}
+
+.admin-mailbox-card .mailbox-content {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom scrollbar for mailbox content */
+.admin-mailbox-card .mailbox-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-mailbox-card .mailbox-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.admin-mailbox-card .mailbox-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+body.dark-mode .admin-mailbox-card .mailbox-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .admin-mailbox-card .mailbox-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Layout for Admin Dashboard */
+@media (max-width: 1024px) {
+    .admin-dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .admin-column-right {
+        order: -1; /* Move mailbox to top on mobile */
+    }
+    
+    .admin-mailbox-card {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-controls-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 10px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-dashboard-grid {
+        gap: 15px;
+    }
+    
+    .admin-column {
+        gap: 15px;
+    }
+    
+    .admin-card {
+        padding: 15px;
+    }
+}
+
+/* Responsive Design for Mailbox */
+@media (max-width: 768px) {
+    .mailbox-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .mailbox-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .message-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 /* Responsive Adjustments */
@@ -792,6 +1327,26 @@ body.dark-mode .error-message p {
         border-radius: 24px;
         width: auto;
     }
+    
+    /* Responsive adjustments for popup */
+    .logout-popup {
+        min-width: 280px;
+        max-width: 90vw;
+        margin: 0 20px;
+        padding: 2rem 1.5rem;
+    }
+    
+    .logout-popup h3 {
+        font-size: 1.2rem;
+    }
+    
+    .logout-popup p {
+        font-size: 0.9rem;
+    }
+      .logout-popup .button {
+        padding: 10px 24px;
+        font-size: 0.85rem;
+    }
 }
 
 /* Animations (Subtle fade-in for sections) */
@@ -804,4 +1359,128 @@ body.dark-mode .error-message p {
 .scroll-animate.in-view {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Logout Notification Popup */
+.logout-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #FFFFFF; /* White, fully opaque */
+    border: 1px solid rgba(200, 200, 200, 0.3);
+    border-radius: 16px;
+    padding: 2.5rem;
+    z-index: 10000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    min-width: 320px;
+    max-width: 400px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.logout-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.logout-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+    backdrop-filter: blur(8px); /* Blurred background */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.logout-popup-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.logout-popup h3 {
+    color: #111111; /* Dark text on white background */
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.logout-popup p {
+    color: #333333; /* Darker secondary text */
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.logout-popup .button {
+    background: #111111; /* Dark button to match brand */
+    color: #FFFFFF;
+    border: 1px solid #111111;
+    padding: 12px 28px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.logout-popup .button:hover {
+    background: transparent;
+    color: #111111;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode adjustments for popup - keep popup white but adjust text if needed */
+body.dark-mode .logout-popup {
+    background: #FFFFFF; /* Keep white even in dark mode */
+    border: 1px solid rgba(200, 200, 200, 0.3);
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .logout-popup h3 {
+    color: #111111; /* Keep dark text on white popup */
+}
+
+body.dark-mode .logout-popup p {
+    color: #333333; /* Keep dark text on white popup */
+}
+
+body.dark-mode .logout-popup .button {
+    background: #111111;
+    color: #FFFFFF;
+}
+
+body.dark-mode .logout-popup .button:hover {
+    background: transparent;
+    color: #111111;
+}
+
+/* Animation for popup appearance */
+@keyframes popupSlideIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.logout-popup.show {
+    animation: popupSlideIn 0.3s ease-out;
 }

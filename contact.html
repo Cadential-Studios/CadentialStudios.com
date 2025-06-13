@@ -31,8 +31,7 @@
     <main id="main-content">
         <section class="contact-form-section">
             <h1>Contact Us</h1>
-            <p class="contact-tagline">Let’s collaborate. Quality from start to finish.</p>
-            <form action="#" method="POST" class="contact-form glass-card">
+            <p class="contact-tagline">Let’s collaborate. Quality from start to finish.</p>            <form id="contact-form" action="#" method="POST" class="contact-form glass-card">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -42,26 +41,32 @@
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
                 <button type="submit" class="button">Send Message</button>
             </form>
+            
+            <!-- Success/Error Messages -->
+            <div id="form-feedback" class="form-feedback" style="display: none;">
+                <p id="feedback-message"></p>
+            </div>
         </section>
-    </main>
-
-    <footer>
+    </main>    <footer>
         <div class="logo-container-footer">
-            <div class="logo-script-footer">cs</div>
+            <img src="images/light theme/initials_only_transparent.png" alt="Cadential Studios Footer Logo" class="footer-logo-img" id="footer-logo">
         </div>
         <p>&copy; 2025 Cadential Studios | Quality from start to finish</p>
     </footer>
 
     <div id="page-loader">
         <div class="loader-initials">cs</div>
-    </div>
-
-    <script src="js/main.js"></script>
+    </div>    <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/mailbox.js"></script>
 </body>
 </html>

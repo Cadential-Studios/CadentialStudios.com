@@ -30,7 +30,15 @@ function updateNavigation() {
     // Remove existing auth links
     navList.querySelectorAll('.auth-link').forEach(el => el.remove());
 
-    const user = getCurrentUser();
+    const user = getCurrentUser();    // Handle developer controls visibility
+    const devControls = document.getElementById('admin-dev-controls');
+    if (devControls) {
+        if (user && user.isAdmin) {
+            devControls.classList.add('show');
+        } else {
+            devControls.classList.remove('show');
+        }
+    }
 
     if (user) {
         if (user.isAdmin) {
@@ -41,15 +49,13 @@ function updateNavigation() {
         }
 
         const logoutItem = document.createElement('li');
-        logoutItem.classList.add('auth-link');
-        const logoutLink = document.createElement('a');
+        logoutItem.classList.add('auth-link');        const logoutLink = document.createElement('a');
         logoutLink.href = '#';
         logoutLink.className = 'nav-link';
         logoutLink.textContent = 'Logout';
         logoutLink.addEventListener('click', e => {
             e.preventDefault();
-            localStorage.removeItem('currentUser');
-            updateNavigation();
+            showLogoutPopup();
         });
         logoutItem.appendChild(logoutLink);
         navList.appendChild(logoutItem);
@@ -118,6 +124,85 @@ function protectAdminPage() {
         window.location.href = 'login.html';
     }
 }
+
+// Logout popup functionality
+function showLogoutPopup() {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'logout-popup-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    
+    // Create popup
+    const popup = document.createElement('div');
+    popup.className = 'logout-popup';
+    popup.setAttribute('role', 'dialog');
+    popup.setAttribute('aria-labelledby', 'logout-title');
+    popup.setAttribute('aria-describedby', 'logout-description');
+    popup.innerHTML = `
+        <h3 id="logout-title">Logged Out Successfully</h3>
+        <p id="logout-description">You have been logged out of your account.</p>
+        <button class="button" onclick="closeLogoutPopup()" aria-label="Close logout notification">OK</button>
+    `;
+    
+    // Add to DOM
+    document.body.appendChild(overlay);
+    document.body.appendChild(popup);
+    
+    // Focus management for accessibility
+    const closeButton = popup.querySelector('button');
+    if (closeButton) {
+        closeButton.focus();
+    }
+    
+    // Show with animation
+    setTimeout(() => {
+        overlay.classList.add('show');
+        popup.classList.add('show');
+    }, 10);
+    
+    // Perform logout
+    localStorage.removeItem('currentUser');
+    updateNavigation();
+    
+    // Store popup references for cleanup
+    window.currentLogoutOverlay = overlay;
+    window.currentLogoutPopup = popup;
+}
+
+function closeLogoutPopup() {
+    const overlay = window.currentLogoutOverlay;
+    const popup = window.currentLogoutPopup;
+    
+    if (overlay && popup) {
+        overlay.classList.remove('show');
+        popup.classList.remove('show');
+        
+        // Remove from DOM after animation
+        setTimeout(() => {
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            if (popup.parentNode) popup.parentNode.removeChild(popup);
+            window.currentLogoutOverlay = null;
+            window.currentLogoutPopup = null;
+            
+            // Return focus to the body or last focused element
+            document.body.focus();
+        }, 300);
+    }
+}
+
+// Close popup when clicking on overlay
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('logout-popup-overlay')) {
+        closeLogoutPopup();
+    }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && window.currentLogoutPopup) {
+        closeLogoutPopup();
+    }
+});
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
