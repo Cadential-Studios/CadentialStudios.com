@@ -1,10 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('theme-toggle');
+    const headerLogo = document.getElementById('header-logo');
     const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+    // Function to update logo based on theme
+    const updateLogo = (isDarkMode) => {
+        if (headerLogo) {
+            if (isDarkMode) {
+                headerLogo.src = 'images/dark theme/full_banner_transparent.png';
+            } else {
+                headerLogo.src = 'images/light theme/full_banner_transparent.png';
+            }
+        }
+    };
 
     if (currentTheme) {
         document.body.classList.add(currentTheme);
+        updateLogo(currentTheme === 'dark-mode');
         // Update toggle icon if you have one, e.g., show moon for dark, sun for light
     }
 
@@ -12,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             let theme = 'light-mode';
-            if (document.body.classList.contains('dark-mode')) {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            if (isDarkMode) {
                 theme = 'dark-mode';
             }
             localStorage.setItem('theme', theme);
+            updateLogo(isDarkMode);
             // Update toggle icon here as well
         });
     }
