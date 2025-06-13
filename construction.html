@@ -143,10 +143,28 @@
             text-decoration: none;
             font-weight: 600;
             transition: opacity 0.3s ease;
+        }        .contact-info a:hover {
+            opacity: 0.8;
         }
 
-        .contact-info a:hover {
-            opacity: 0.8;
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 25px;
+            color: #666666 !important;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .footer-note {
@@ -209,11 +227,15 @@
         <div class="progress-bar-container">
             <div class="progress-bar"></div>
         </div>
-        
-        <div class="contact-info">
+          <div class="contact-info">
             <p><strong>Need to reach us?</strong></p>
-            <p>Email: <a href="mailto:info@cadentialstudios.com">info@cadentialstudios.com</a></p>
+            <p>Email: <a href="mailto:cadentialstudios50@gmail.com">cadentialstudios50@gmail.com</a></p>
             <p>We appreciate your patience and look forward to sharing our updates with you.</p>
+            
+            <!-- Developer/Admin Back Button -->
+            <div class="admin-controls" style="margin-top: 20px;">
+                <a href="index.html" class="back-button" title="Return to Main Site">← Back to Main Site</a>
+            </div>
         </div>
     </div>
     
