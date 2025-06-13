@@ -48,6 +48,16 @@ body.dark-mode header {
     align-items: center;
 }
 
+.header-logo-img {
+    height: 60px; /* Increased by 25% from 40px */
+    width: auto;
+    transition: opacity 0.3s ease;
+}
+
+.header-logo-img:hover {
+    opacity: 0.8;
+}
+
 .logo-script {
     font-family: 'Your Script Font', cursive; /* Replace with actual script font if available */
     font-size: 2.5em;
@@ -221,6 +231,58 @@ body.dark-mode .glass-card {
     background: rgba(34, 34, 34, 0.6); /* Darker glass for dark mode */
     border: 1px solid rgba(80, 80, 80, 0.3);
     box-shadow: 0 4px 32px rgba(255,255,255,0.03);
+}
+
+/* Developer Controls - Remove in production */
+.developer-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.dev-button {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    transition: all 0.3s ease;
+    display: inline-block;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.dev-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    background: linear-gradient(135deg, #ee5a52, #ff6b6b);
+}
+
+body.dark-mode .dev-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+body.dark-mode .dev-button:hover {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+/* Hide developer controls on small screens for better UX */
+@media (max-width: 768px) {
+    .developer-controls {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .dev-button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
 }
 
 /* Custom Scrollbar */
