@@ -536,11 +536,6 @@ body.dark-mode .service-item:hover {
     background-color: rgba(255,255,255,0.02);
 }
 
-.service-item img { /* Assuming you'll add icons */
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
 
 .service-item p {
     font-weight: 600;
@@ -592,6 +587,13 @@ body.dark-mode .subscribe-bar input[type="email"] {
 .filter-controls {
     text-align: center;
     margin-bottom: 30px;
+}
+
+.no-projects-message {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    display: none;
 }
 
 .filter-button {
