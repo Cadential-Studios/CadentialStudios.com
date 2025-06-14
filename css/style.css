@@ -536,11 +536,6 @@ body.dark-mode .service-item:hover {
     background-color: rgba(255,255,255,0.02);
 }
 
-.service-item img { /* Assuming you'll add icons */
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
 
 .service-item p {
     font-weight: 600;
