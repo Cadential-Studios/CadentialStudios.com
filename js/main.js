@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Project Filtering (for projects.html)
     const filterButtons = document.querySelectorAll('.filter-button');
     const projectTiles = document.querySelectorAll('.projects-grid .project-tile');
+    const noProjectsMessage = document.querySelector('.no-projects-message');
 
     if (filterButtons.length > 0 && projectTiles.length > 0) {
         filterButtons.forEach(button => {
@@ -113,13 +114,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const filter = button.dataset.filter;
 
+                let visibleCount = 0;
                 projectTiles.forEach(tile => {
                     if (filter === 'all' || tile.dataset.category === filter) {
-                        tile.style.display = 'block'; // Or your preferred display type
+                        tile.style.display = 'block';
+                        visibleCount++;
                     } else {
                         tile.style.display = 'none';
                     }
                 });
+
+                if (noProjectsMessage) {
+                    if (visibleCount === 0) {
+                        noProjectsMessage.style.display = 'block';
+                    } else {
+                        noProjectsMessage.style.display = 'none';
+                    }
+                }
             });
         });
     }

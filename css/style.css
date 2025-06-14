@@ -594,6 +594,13 @@ body.dark-mode .subscribe-bar input[type="email"] {
     margin-bottom: 30px;
 }
 
+.no-projects-message {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    display: none;
+}
+
 .filter-button {
     margin: 0 10px;
     padding: 8px 20px;
