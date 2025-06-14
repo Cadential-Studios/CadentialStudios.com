@@ -2,7 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('theme-toggle');
     const headerLogo = document.getElementById('header-logo');
-    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;    // Function to update logo based on theme
+    const themeIconLight = document.getElementById('theme-icon-light'); // Sun icon
+    const themeIconDark = document.getElementById('theme-icon-dark'); // Moon icon
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+    // Function to update theme icons
+    const updateThemeIcon = (isDarkMode) => {
+        if (themeIconLight && themeIconDark) {
+            if (isDarkMode) {
+                // Dark mode is active, show sun icon (to switch to light)
+                themeIconLight.style.display = 'block';
+                themeIconDark.style.display = 'none';
+            } else {
+                // Light mode is active, show moon icon (to switch to dark)
+                themeIconLight.style.display = 'none';
+                themeIconDark.style.display = 'block';
+            }
+        }
+    };
+
+    // Function to update logo based on theme
     const updateLogo = (isDarkMode) => {
         if (headerLogo) {
             if (isDarkMode) {
@@ -24,12 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (currentTheme) {
+        const isDarkMode = currentTheme === 'dark-mode';
         document.body.classList.add(currentTheme);
-        updateLogo(currentTheme === 'dark-mode');
-        // Update toggle icon if you have one, e.g., show moon for dark, sun for light
-    }
-
-    if (themeToggle) {
+        updateLogo(isDarkMode);
+        updateThemeIcon(isDarkMode);
+    } else {
+        // Default to light mode, show moon icon
+        updateThemeIcon(false);
+    }    if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             let theme = 'light-mode';
@@ -39,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             localStorage.setItem('theme', theme);
             updateLogo(isDarkMode);
-            // Update toggle icon here as well
+            updateThemeIcon(isDarkMode);
         });
     }
 
@@ -143,6 +164,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     animateOnScroll(); // Re-check after adding class
+
+    // Initialize authentication system
+    if (typeof ensureAdminUser === 'function') {
+        ensureAdminUser();
+    }
+    if (typeof updateNavigation === 'function') {
+        updateNavigation();
+    }
+    if (typeof setupLoginForm === 'function') {
+        setupLoginForm();
+    }
+    if (typeof setupRegisterForm === 'function') {
+        setupRegisterForm();
+    }
 
 });
 

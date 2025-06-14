@@ -109,10 +109,16 @@ nav ul {
     margin: 0;
     display: flex;
     align-items: center; /* Vertically center nav items */
+    justify-content: space-between; /* Distribute space between items */
 }
 
 nav ul li {
     margin-left: 25px;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
 }
 
 .nav-link {
@@ -1039,10 +1045,10 @@ body.dark-mode .message-content {
     text-align: right;
 }
 
-/* Admin Dashboard Two-Column Layout */
+/* Admin Dashboard Single Column Layout */
 .admin-dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    display: flex;
+    flex-direction: column;
     gap: 30px;
     margin-top: 30px;
 }
@@ -1051,6 +1057,7 @@ body.dark-mode .message-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
 }
 
 .admin-card {
@@ -1199,21 +1206,6 @@ body.dark-mode .admin-mailbox-card .mailbox-content::-webkit-scrollbar-thumb {
 }
 
 /* Responsive Layout for Admin Dashboard */
-@media (max-width: 1024px) {
-    .admin-dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .admin-column-right {
-        order: -1; /* Move mailbox to top on mobile */
-    }
-    
-    .admin-mailbox-card {
-        min-height: 400px;
-    }
-}
-
 @media (max-width: 768px) {
     .admin-controls-grid {
         grid-template-columns: 1fr;
@@ -1230,6 +1222,10 @@ body.dark-mode .admin-mailbox-card .mailbox-content::-webkit-scrollbar-thumb {
     
     .stat-number {
         font-size: 1.5rem;
+    }
+    
+    .admin-mailbox-card {
+        min-height: 400px;
     }
 }
 
@@ -1349,138 +1345,350 @@ body.dark-mode .admin-mailbox-card .mailbox-content::-webkit-scrollbar-thumb {
     }
 }
 
-/* Animations (Subtle fade-in for sections) */
-.scroll-animate {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center; /* Vertically center nav items */
 }
 
-.scroll-animate.in-view {
-    opacity: 1;
-    transform: translateY(0);
+nav ul li {
+    margin-left: 25px;
 }
 
-/* Logout Notification Popup */
-.logout-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #FFFFFF; /* White, fully opaque */
-    border: 1px solid rgba(200, 200, 200, 0.3);
-    border-radius: 16px;
-    padding: 2.5rem;
-    z-index: 10000;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+/* Auth container - right aligned */
+.auth-container {
+    margin-left: auto !important; /* Push to the right */
+    display: flex;
+    align-items: center;
+}
+
+/* Account section styling */
+.account-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.account-greeting {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1;
+}
+
+.account-btn, .login-btn {
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* ============================================
+   ACCOUNT PAGE STYLES
+   ============================================ */
+
+.account-page {
+    background: var(--glass-bg);
+    min-height: 100vh;
+}
+
+.account-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.account-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
     text-align: center;
-    min-width: 320px;
-    max-width: 400px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+    color: var(--text-primary);
 }
 
-.logout-popup.show {
-    opacity: 1;
-    visibility: visible;
+/* Account Grid Layout */
+.account-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.logout-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+.account-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account-card {
+    padding: 30px;
+    margin-bottom: 0;
+}
+
+.account-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-picture-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    min-width: 150px;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+}
+
+.profile-picture img {
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Darker overlay */
-    backdrop-filter: blur(8px); /* Blurred background */
-    -webkit-backdrop-filter: blur(8px); /* Safari support */
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-.logout-popup-overlay.show {
-    opacity: 1;
-    visibility: visible;
+/* Ensure the profile picture container maintains circular shape */
+.profile-picture {
+    border-radius: 50% !important;
+    overflow: hidden;
 }
 
-.logout-popup h3 {
-    color: #111111; /* Dark text on white background */
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    font-weight: 600;
+#profile-initials {
+    font-size: 2.5em;
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
 }
 
-.logout-popup p {
-    color: #333333; /* Darker secondary text */
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    line-height: 1.6;
+.profile-info {
+    flex: 1;
 }
 
-.logout-popup .button {
-    background: #111111; /* Dark button to match brand */
-    color: #FFFFFF;
-    border: 1px solid #111111;
-    padding: 12px 28px;
-    border-radius: 24px;
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Interests Section */
+.interests-section p {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+}
+
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.interest-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: var(--glass-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.interest-item:hover {
+    border-color: var(--accent-color);
+    background: var(--accent-color-light);
+}
+
+.interest-item input[type="checkbox"] {
+    display: none;
+}
+
+.interest-item input[type="checkbox"]:checked + .checkmark {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.interest-item input[type="checkbox"]:checked {
+    background: var(--accent-color);
+}
+
+.interest-item.selected {
+    border-color: var(--accent-color);
+    background: var(--accent-color-light);
+}
+
+.checkmark {
+    font-size: 0.9em;
+    transition: color 0.2s ease;
+}
+
+/* Settings Section */
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.setting-item {
+    padding: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.setting-item h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-primary);
+    font-size: 1.1em;
+}
+
+.setting-item p {
+    margin: 0 0 15px 0;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-switch input[type="checkbox"] {
+    display: none;
+}
+
+.slider {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background: var(--border-color);
+    border-radius: 24px;
+    transition: background 0.3s ease;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .slider {
+    background: var(--accent-color);
+}
+
+.toggle-switch input[type="checkbox"]:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+.toggle-label {
+    font-size: 0.9em;
+    color: var(--text-primary);
+}
+
+/* Social Connections */
+.social-connections {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.social-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social-icon {
+    font-size: 1.5em;
+}
+
+.social-details h4 {
+    margin: 0;
+    font-size: 1em;
+    color: var(--text-primary);
+}
+
+.social-details p {
+    margin: 0;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+}
+
+.social-status {
+    font-size: 0.9em;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    transition: all 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
 }
 
-.logout-popup .button:hover {
-    background: transparent;
-    color: #111111;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.social-status.connected {
+    color: #22c55e;
 }
 
-/* Dark mode adjustments for popup - keep popup white but adjust text if needed */
-body.dark-mode .logout-popup {
-    background: #FFFFFF; /* Keep white even in dark mode */
-    border: 1px solid rgba(200, 200, 200, 0.3);
-    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+.social-status.disconnected {
+    color: var(--text-secondary);
 }
 
-body.dark-mode .logout-popup h3 {
-    color: #111111; /* Keep dark text on white popup */
+/* Account Actions */
+.account-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    text-align: center;
 }
 
-body.dark-mode .logout-popup p {
-    color: #333333; /* Keep dark text on white popup */
-}
-
-body.dark-mode .logout-popup .button {
-    background: #111111;
-    color: #FFFFFF;
-}
-
-body.dark-mode .logout-popup .button:hover {
-    background: transparent;
-    color: #111111;
-}
-
-/* Animation for popup appearance */
-@keyframes popupSlideIn {
-    from {
-        transform: translate(-50%, -50%) scale(0.9);
-        opacity: 0;
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-}
-
-.logout-popup.show {
-    animation: popupSlideIn 0.3s ease-out;
+.account-actions > .button,
+.account-actions > .button-secondary {
+    align-self: center;
+    min-width: 150px;
 }

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Cadential Studios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="js/maintenance.js"></script>
+</head>
+<body class="account-page">
+    <header>
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <img src="images/light theme/full_banner_transparent.png" alt="Cadential Studios Logo" class="header-logo-img" id="header-logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="music.html" class="nav-link">Music</a></li>
+                <li><a href="podcast.html" class="nav-link">Podcast</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" aria-label="Toggle light/dark mode">
+            <svg class="theme-icon" id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0-5c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1V5c0-.55-.45-1-1-1zm0 14c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1zm-8-7c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1s.45-1 1-1h2c.55 0 1 .45 1 1zm14 0c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1s.45-1 1-1h2c.55 0 1 .45 1 1zM6.34 6.34c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41L6.34 6.34zm11.32 11.32c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.41 1.41c.39.39 1.02.39 1.41 0s.39-1.02 0-1.41l-1.41-1.41zM6.34 17.66l-1.41-1.41c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0zm11.32-11.32l-1.41-1.41c-.39-.39-.39-1.02 0-1.41s1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41s-1.02.39-1.41 0z"/>
+            </svg>
+            <svg class="theme-icon" id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" style="display:none;">
+                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.97-4.03-9-9-9zm-1 13.5c-2.48 0-4.5-2.02-4.5-4.5S8.52 7.5 11 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/>
+            </svg>
+        </button>
+    </header>
+
+    <main id="main-content">
+        <section class="account-section">
+            <h1>My Account</h1>
+            
+            <!-- Account Overview -->
+            <div class="account-grid">
+                <!-- Left Column - Profile -->
+                <div class="account-column">
+                    <div class="glass-card account-card">
+                        <h2>Profile</h2>
+                        <div class="profile-section">
+                            <div class="profile-picture-section">
+                                <div class="profile-picture" id="profile-picture">
+                                    <span id="profile-initials">?</span>
+                                </div>
+                                <button class="button-secondary" id="change-picture-btn">Change Picture</button>
+                                <input type="file" id="picture-upload" accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <div class="profile-info">
+                                <div class="form-group">
+                                    <label for="display-name">Display Name</label>
+                                    <input type="text" id="display-name" name="display-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-display">Email</label>
+                                    <input type="email" id="email-display" name="email-display" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio">Bio</label>
+                                    <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button class="button" id="save-profile-btn">Save Changes</button>
+                            <button class="button-secondary" id="cancel-changes-btn">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Interests Section -->
+                    <div class="glass-card account-card">
+                        <h2>Interests</h2>
+                        <div class="interests-section">
+                            <p>Select your interests to personalize your experience:</p>
+                            <div class="interests-grid">
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="games">
+                                    <span class="checkmark">🎮 Games</span>
+                                </label>
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="music">
+                                    <span class="checkmark">🎵 Music</span>
+                                </label>
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="animation">
+                                    <span class="checkmark">🎬 Animation</span>
+                                </label>
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="ai">
+                                    <span class="checkmark">🤖 AI & Tech</span>
+                                </label>
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="podcasts">
+                                    <span class="checkmark">🎙️ Podcasts</span>
+                                </label>
+                                <label class="interest-item">
+                                    <input type="checkbox" name="interests" value="design">
+                                    <span class="checkmark">🎨 Design</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Settings & Social -->
+                <div class="account-column">
+                    <!-- Account Settings -->
+                    <div class="glass-card account-card">
+                        <h2>Account Settings</h2>
+                        <div class="settings-section">
+                            <div class="setting-item">
+                                <h4>Change Password</h4>
+                                <p>Update your password to keep your account secure.</p>
+                                <button class="button-secondary" id="change-password-btn">Change Password</button>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <h4>Email Notifications</h4>
+                                <p>Manage how you receive updates from us.</p>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="email-notifications" checked>
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">Enable email notifications</span>
+                                </label>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <h4>Privacy</h4>
+                                <p>Control your profile visibility.</p>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="profile-public">
+                                    <span class="slider"></span>
+                                    <span class="toggle-label">Make profile public</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Connections -->
+                    <div class="glass-card account-card">
+                        <h2>Social Connections</h2>
+                        <div class="social-connections">
+                            <div class="social-item">
+                                <div class="social-info">
+                                    <span class="social-icon">🐦</span>
+                                    <div>
+                                        <h4>Twitter / X</h4>
+                                        <p id="twitter-status">Not connected</p>
+                                    </div>
+                                </div>
+                                <button class="button-secondary" id="connect-twitter">Connect</button>
+                            </div>
+                            
+                            <div class="social-item">
+                                <div class="social-info">
+                                    <span class="social-icon">📷</span>
+                                    <div>
+                                        <h4>Instagram</h4>
+                                        <p id="instagram-status">Not connected</p>
+                                    </div>
+                                </div>
+                                <button class="button-secondary" id="connect-instagram">Connect</button>
+                            </div>
+                            
+                            <div class="social-item">
+                                <div class="social-info">
+                                    <span class="social-icon">💼</span>
+                                    <div>
+                                        <h4>LinkedIn</h4>
+                                        <p id="linkedin-status">Not connected</p>
+                                    </div>
+                                </div>
+                                <button class="button-secondary" id="connect-linkedin">Connect</button>
+                            </div>
+                        </div>
+                    </div>                    <!-- Account Actions -->
+                    <div class="glass-card account-card">
+                        <h2>Account Actions</h2>
+                        <div class="account-actions">
+                            <button class="button-secondary" id="logout-btn">Logout</button>
+                            <button class="button" id="export-data-btn">Export My Data</button>
+                            
+                            <div class="danger-zone">
+                                <h3>Danger Zone</h3>
+                                <p>These actions cannot be undone. Please proceed with caution.</p>
+                                <button class="button-danger" id="delete-account-btn">Delete Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo-container-footer">
+            <img src="images/light theme/initials_only_transparent.png" alt="Cadential Studios Footer Logo" class="footer-logo-img" id="footer-logo">
+        </div>
+        <p>&copy; 2025 Cadential Studios | Quality from start to finish</p>
+    </footer>
+
+    <div id="page-loader">
+        <div class="loader-initials">cs</div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Change Password</h3>
+            <form id="password-change-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="button">Update Password</button>
+                    <button type="button" class="button-secondary" id="cancel-password">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/account.js"></script>
+</body>
+</html>
