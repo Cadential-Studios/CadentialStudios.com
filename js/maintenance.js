@@ -1,6 +1,6 @@
 // Maintenance Mode Configuration
 // Set to true to enable maintenance mode, false to disable
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 
 // Developer bypass - set to true if you're testing/developing
 const DEVELOPER_MODE = false;
