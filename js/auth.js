@@ -30,7 +30,9 @@ function updateNavigation() {
     // Remove existing auth links
     navList.querySelectorAll('.auth-link').forEach(el => el.remove());
 
-    const user = getCurrentUser();    // Handle developer controls visibility
+    const user = getCurrentUser();
+
+    // Handle developer controls visibility
     const devControls = document.getElementById('admin-dev-controls');
     if (devControls) {
         if (user && user.isAdmin) {
@@ -40,31 +42,34 @@ function updateNavigation() {
         }
     }
 
+    // Create auth button container
+    const authContainer = document.createElement('li');
+    authContainer.classList.add('auth-link', 'auth-container');
+
     if (user) {
+        // Create account button with greeting
+        const userName = user.displayName || user.email.split('@')[0];
+        
+        authContainer.innerHTML = `
+            <div class="account-section">
+                <div class="account-greeting">Hello, ${userName}!</div>
+                <a href="account.html" class="nav-link account-btn">Account</a>
+            </div>
+        `;
+
+        // Add admin link if user is admin
         if (user.isAdmin) {
             const adminItem = document.createElement('li');
             adminItem.classList.add('auth-link');
             adminItem.innerHTML = '<a href="admin.html" class="nav-link">Admin</a>';
             navList.appendChild(adminItem);
         }
-
-        const logoutItem = document.createElement('li');
-        logoutItem.classList.add('auth-link');        const logoutLink = document.createElement('a');
-        logoutLink.href = '#';
-        logoutLink.className = 'nav-link';
-        logoutLink.textContent = 'Logout';
-        logoutLink.addEventListener('click', e => {
-            e.preventDefault();
-            showLogoutPopup();
-        });
-        logoutItem.appendChild(logoutLink);
-        navList.appendChild(logoutItem);
     } else {
-        const loginItem = document.createElement('li');
-        loginItem.classList.add('auth-link');
-        loginItem.innerHTML = '<a href="login.html" class="nav-link">Login</a>';
-        navList.appendChild(loginItem);
+        // Create login button
+        authContainer.innerHTML = '<a href="login.html" class="nav-link login-btn">Login</a>';
     }
+
+    navList.appendChild(authContainer);
 }
 
 // Handle login form submission

@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Test Account System",
+			"type": "shell",
+			"command": "echo Testing account system - please check the browser to verify:",
+			"group": "test",
+			"isBackground": false
+		}
+	]
+}
