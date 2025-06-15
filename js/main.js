@@ -190,6 +190,89 @@ document.addEventListener('DOMContentLoaded', () => {
         setupRegisterForm();
     }
 
+    // Newsletter Form Handling
+    const setupNewsletterForm = () => {
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (!newsletterForm) return;
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(newsletterForm);
+            const email = formData.get('email').trim();
+
+            // Validate email
+            if (!email) {
+                showNewsletterFeedback('Please enter your email address.', 'error');
+                return;
+            }
+
+            // Email validation regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNewsletterFeedback('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            // Simulate subscription process (you can replace this with actual API call)
+            const submitButton = newsletterForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            submitButton.textContent = 'Subscribing...';
+            submitButton.disabled = true;
+
+            // Store newsletter subscription locally (you can replace this with actual backend integration)
+            const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+            
+            // Check if email already exists
+            if (subscribers.some(sub => sub.email === email)) {
+                setTimeout(() => {
+                    showNewsletterFeedback('You are already subscribed to our newsletter!', 'error');
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }, 1000);
+                return;
+            }
+
+            // Add new subscriber
+            subscribers.push({
+                email: email,
+                subscribedAt: new Date().toISOString(),
+                status: 'active'
+            });
+            localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+
+            // Show success message
+            setTimeout(() => {
+                showNewsletterFeedback('Thank you for subscribing! You\'ll receive our latest updates.', 'success');
+                newsletterForm.reset();
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 1000);
+        });
+    };
+
+    // Show newsletter feedback
+    const showNewsletterFeedback = (message, type = 'success') => {
+        const feedbackDiv = document.getElementById('newsletter-feedback');
+        const feedbackMessage = document.getElementById('newsletter-message');
+        
+        if (feedbackDiv && feedbackMessage) {
+            feedbackMessage.textContent = message;
+            feedbackDiv.className = `form-feedback ${type}`;
+            feedbackDiv.style.display = 'block';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                feedbackDiv.style.display = 'none';
+            }, 5000);
+        }
+    };
+
+    // Initialize newsletter form
+    setupNewsletterForm();
+
 });
 
 // Add to your CSS for the loader example:
