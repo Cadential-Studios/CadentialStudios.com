@@ -32,15 +32,32 @@ class AccountManager {
 
     getAllUsers() {
         return JSON.parse(localStorage.getItem(this.usersKey) || '[]');
-    }
-
-    updateUser(userData) {
+    }    updateUser(userData) {
         const users = this.getAllUsers();
-        const userIndex = users.findIndex(u => u.email === userData.email);
+        const currentUser = this.getCurrentUser();
+        if (!currentUser) return;
+
+        const userIndex = users.findIndex(u => u.email === currentUser.email);
         if (userIndex !== -1) {
+            // Update user in users array
             users[userIndex] = { ...users[userIndex], ...userData };
             localStorage.setItem(this.usersKey, JSON.stringify(users));
-            localStorage.setItem(this.userKey, JSON.stringify(users[userIndex]));
+            
+            // Update current user session (exclude password for security)
+            const updatedUser = users[userIndex];
+            const userSession = {
+                email: updatedUser.email,
+                isAdmin: updatedUser.isAdmin || false,
+                displayName: updatedUser.displayName || '',
+                profilePicture: updatedUser.profilePicture || '',
+                profileColor: updatedUser.profileColor || '',
+                bio: updatedUser.bio || '',
+                interests: updatedUser.interests || [],
+                socialConnections: updatedUser.socialConnections || {},
+                emailNotifications: updatedUser.emailNotifications || false,
+                profilePublic: updatedUser.profilePublic || false
+            };
+            localStorage.setItem(this.userKey, JSON.stringify(userSession));
         }
     }
 
@@ -90,19 +107,19 @@ class AccountManager {
             '#F7DC6F', '#BB8FCE', '#85C1E9', '#F8C471', '#82E0AA'
         ];
         return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    updateProfilePicture() {
+    }    updateProfilePicture() {
         const user = this.getCurrentUser();
         if (!user) return;
 
         const profilePicture = document.getElementById('profile-picture');
         const profileInitials = document.getElementById('profile-initials');
+        const clearBtn = document.getElementById('clear-picture-btn');
         
         if (user.profilePicture) {
             profilePicture.style.backgroundImage = `url(${user.profilePicture})`;
             profilePicture.style.backgroundColor = 'transparent';
             profileInitials.style.display = 'none';
+            if (clearBtn) clearBtn.style.display = 'inline-block';
         } else {
             const name = user.displayName || user.email.split('@')[0];
             const initials = name.substring(0, 1).toUpperCase();
@@ -117,13 +134,47 @@ class AccountManager {
             profilePicture.style.backgroundColor = color;
             profileInitials.textContent = initials;
             profileInitials.style.display = 'flex';
+            if (clearBtn) clearBtn.style.display = 'none';
+        }
+
+        // Update navigation profile picture if it exists
+        this.updateNavigationProfilePicture();
+    }updateNavigationProfilePicture() {
+        const navProfilePicture = document.getElementById('nav-profile-picture');
+        if (!navProfilePicture) return;
+
+        const user = this.getCurrentUser();
+        if (!user) return;
+
+        if (user.profilePicture) {
+            navProfilePicture.innerHTML = `<img src="${user.profilePicture}" alt="Profile">`;
+            navProfilePicture.style.background = 'transparent';
+        } else {
+            const initials = this.getUserInitials(user);
+            const color = user.profileColor || this.generateProfileColor();
+            navProfilePicture.innerHTML = `<span class="nav-profile-initials">${initials}</span>`;
+            navProfilePicture.style.background = color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         }
     }
 
-    setupEventListeners() {
+    getUserInitials(user) {
+        if (user.displayName) {
+            const names = user.displayName.trim().split(' ');
+            if (names.length >= 2) {
+                return (names[0][0] + names[names.length - 1][0]).toUpperCase();
+            }            return names[0][0].toUpperCase();
+        }
+        // Fall back to email
+        return user.email[0].toUpperCase();
+    }    setupEventListeners() {
         // Profile picture change
         document.getElementById('change-picture-btn').addEventListener('click', () => {
             document.getElementById('picture-upload').click();
+        });
+
+        // Clear profile picture
+        document.getElementById('clear-picture-btn').addEventListener('click', () => {
+            this.clearProfilePicture();
         });
 
         document.getElementById('picture-upload').addEventListener('change', (e) => {
@@ -366,6 +417,16 @@ class AccountManager {
             feedback.classList.remove('show');
             setTimeout(() => feedback.remove(), 300);
         }, 3000);
+    }    clearProfilePicture() {
+        const user = this.getCurrentUser();
+        if (!user || !user.profilePicture) {
+            this.showFeedback('No profile picture to clear!', 'info');
+            return;
+        }
+        
+        this.updateUser({ profilePicture: '' });
+        this.updateProfilePicture();
+        this.showFeedback('Profile picture cleared successfully!');
     }
 }
 
