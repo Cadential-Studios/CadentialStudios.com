@@ -22,6 +22,19 @@ function getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser') || 'null');
 }
 
+// Get user initials for profile picture
+function getUserInitials(user) {
+    if (user.displayName) {
+        const names = user.displayName.trim().split(' ');
+        if (names.length >= 2) {
+            return (names[0][0] + names[names.length - 1][0]).toUpperCase();
+        }
+        return names[0][0].toUpperCase();
+    }
+    // Fall back to email
+    return user.email[0].toUpperCase();
+}
+
 // Update navigation based on auth state
 function updateNavigation() {
     const navList = document.querySelector('nav ul');
@@ -30,7 +43,9 @@ function updateNavigation() {
     // Remove existing auth links
     navList.querySelectorAll('.auth-link').forEach(el => el.remove());
 
-    const user = getCurrentUser();    // Handle developer controls visibility
+    const user = getCurrentUser();
+
+    // Handle
     const devControls = document.getElementById('admin-dev-controls');
     if (devControls) {
         if (user && user.isAdmin) {
@@ -38,33 +53,37 @@ function updateNavigation() {
         } else {
             devControls.classList.remove('show');
         }
-    }
+    }    // Create auth button container
+    const authContainer = document.createElement('li');
+    authContainer.classList.add('auth-link', 'auth-container');
+      if (user) {
+        // Create account section with profile picture and greeting
+        const userName = user.displayName || user.email.split('@')[0];
+        const userInitials = getUserInitials(user);
+        const profilePicture = user.profilePicture || '';        authContainer.innerHTML = `
+            <div class="nav-account-section">
+                <a href="account.html" class="nav-profile-link" title="Go to Account">
+                    <div class="nav-profile-picture" id="nav-profile-picture">
+                        ${profilePicture ? `<img src="${profilePicture}" alt="Profile">` : `<span class="nav-profile-initials">${userInitials}</span>`}
+                    </div>
+                </a>
+                <button class="nav-link logout-btn" onclick="logout()" title="Logout">Logout</button>
+            </div>
+        `;
 
-    if (user) {
+        // Add admin link if user is admin
         if (user.isAdmin) {
             const adminItem = document.createElement('li');
             adminItem.classList.add('auth-link');
             adminItem.innerHTML = '<a href="admin.html" class="nav-link">Admin</a>';
             navList.appendChild(adminItem);
         }
-
-        const logoutItem = document.createElement('li');
-        logoutItem.classList.add('auth-link');        const logoutLink = document.createElement('a');
-        logoutLink.href = '#';
-        logoutLink.className = 'nav-link';
-        logoutLink.textContent = 'Logout';
-        logoutLink.addEventListener('click', e => {
-            e.preventDefault();
-            showLogoutPopup();
-        });
-        logoutItem.appendChild(logoutLink);
-        navList.appendChild(logoutItem);
     } else {
-        const loginItem = document.createElement('li');
-        loginItem.classList.add('auth-link');
-        loginItem.innerHTML = '<a href="login.html" class="nav-link">Login</a>';
-        navList.appendChild(loginItem);
+        // Create login button
+        authContainer.innerHTML = '<a href="login.html" class="nav-link login-btn">Login</a>';
     }
+
+    navList.appendChild(authContainer);
 }
 
 // Handle login form submission
@@ -77,9 +96,16 @@ function setupLoginForm() {
         const email = form.email.value.trim();
         const password = form.password.value;
         const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-            localStorage.setItem('currentUser', JSON.stringify({ email: user.email, isAdmin: user.isAdmin }));
+        const user = users.find(u => u.email === email && u.password === password);        if (user) {
+            // Store the complete user object (excluding password for security)
+            const userSession = { 
+                email: user.email, 
+                isAdmin: user.isAdmin,
+                displayName: user.displayName,
+                profilePicture: user.profilePicture,
+                profileColor: user.profileColor
+            };
+            localStorage.setItem('currentUser', JSON.stringify(userSession));
             if (user.isAdmin) {
                 window.location.href = 'admin.html';
             } else {
@@ -108,11 +134,27 @@ function setupRegisterForm() {
         if (users.some(u => u.email === email)) {
             alert('User already exists');
             return;
-        }
-        users.push({ email, password, isAdmin: false });
+        }        const newUser = { 
+            email, 
+            password, 
+            isAdmin: false,
+            displayName: '',
+            profilePicture: '',
+            profileColor: ''
+        };
+        users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
-        alert('Registration successful. Please log in.');
-        window.location.href = 'login.html';
+        
+        // Auto-login the new user
+        const userSession = { 
+            email: newUser.email, 
+            isAdmin: newUser.isAdmin,
+            displayName: newUser.displayName,
+            profilePicture: newUser.profilePicture,
+            profileColor: newUser.profileColor
+        };
+        localStorage.setItem('currentUser', JSON.stringify(userSession));
+        window.location.href = 'account.html'; // Direct to account to set up profile
     });
 }
 
@@ -123,6 +165,15 @@ function protectAdminPage() {
     if (!user || !user.isAdmin) {
         window.location.href = 'login.html';
     }
+}
+
+// Handle logout
+function logout() {
+    // Clear user session
+    localStorage.removeItem('currentUser');
+    
+    // Show logout popup
+    showLogoutPopup();
 }
 
 // Logout popup functionality
